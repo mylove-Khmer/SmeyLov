@@ -1756,6 +1756,11 @@ def handle(message):
         kb = admin_kb() if uid == ADMIN_ID else main_kb(uid)
         bot.send_message(uid, t(uid, "cancel_ok"), reply_markup=kb); return
 
+    # 📌 ពិនិត្យ Broadcast នៅទីនេះជាដំបូងបង្អស់
+    if uid == ADMIN_ID and step == "broadcast_msg":
+        _do_broadcast(uid, message)
+        return
+
     # ══════════════════════════════════════════════════════
     #  LIVE CHAT: ADMIN REPLY (Replying to user messages)
     # ══════════════════════════════════════════════════════
@@ -1939,9 +1944,6 @@ def handle(message):
                 f"✅ <b>Promo Code Created!</b>\n"
                 f"🎟 <code>{code}</code> — <b>{dtype}</b> | {uses} uses",
                 parse_mode="HTML", reply_markup=admin_kb()); return
-
-        if step == "broadcast_msg":
-            _do_broadcast(uid, message); return
 
         if isinstance(step, dict) and step.get("step") == "add_stock_items":
             pid      = step["pid"]
