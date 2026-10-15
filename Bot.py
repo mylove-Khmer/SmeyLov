@@ -1254,7 +1254,7 @@ def cb_delsvc(call):
 
     if len(parts) == 3 and parts[1] == "cat":
         cat = parts[2]
-        to_del = [slug for slug, s in smm_services.items() if s.get("category"] == cat]
+        to_del = [slug for slug, s in smm_services.items() if s.get("category") == cat]
         for slug in to_del:
             smm_services.pop(slug, None)
         _save(SMM_SVC_FILE, smm_services)
