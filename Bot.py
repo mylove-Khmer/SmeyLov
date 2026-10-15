@@ -551,7 +551,7 @@ def _smm_get_categories():
     return cats
 
 def _smm_get_svcs_in_cat(cat):
-    return [(slug, s) for slug, s in smm_services.items() if s.get("category"] == cat]
+    return [(slug, s) for slug, s in smm_services.items() if s.get("category") == cat]
 
 def _smm_profit_pct(): return float(smm_profit.get("pct", 20))
 
@@ -641,7 +641,7 @@ def _watch_deposit(uid, uid_str, dep_id, amount, start_ts, sent_msg_id=None):
     
     while time.time() < deadline:
         dep = store_deps.get(dep_id)
-        if not dep or dep.get("status"] != "confirmed":
+        if not dep or dep.get("status") != "confirmed":
             md5 = dep.get("md5", "") if dep else ""
             if md5 and _check_bakong(md5, amount, start_ts):
                 bonus = float(dep.get("bonus", 0))
@@ -697,7 +697,7 @@ def _watch_deposit(uid, uid_str, dep_id, amount, start_ts, sent_msg_id=None):
         time.sleep(5)
 
     dep = store_deps.get(dep_id)
-    if dep and dep.get("status"] == "pending":
+    if dep and dep.get("status") == "pending":
         dep["status"] = "expired"; _save(STORE_DEP_FILE, store_deps)
         try: bot.send_message(uid, "⏰ <b>QR ផុតកំណត់!</b> សូម top up ម្ដងទៀត", parse_mode="HTML")
         except: pass
@@ -915,7 +915,6 @@ def cmd_start(message):
     if len(command_parts) > 1:
         param = command_parts[1].strip()
         if param == "buy":
-            # បើភ្ញៀវចុចពីតំណភ្ជាប់ផ្សព្វផ្សាយ ឱ្យវាបង្ហាញបញ្ជីផលិតផល/ហាងឌីជីថលភ្លាមៗ
             bot.send_message(
                 uid,
                 "🛍️ <b>ហាងឌីជីថល</b>\n━━━━━━━━━━━━━━━━━━\nសូមជ្រើសរើសផលិតផលដែលអ្នកចង់ទិញ៖",
@@ -1043,7 +1042,7 @@ def cb_manual_dep(call):
     total_credit = amount
 
     if action == "approve":
-        if dep.get("status"] == "confirmed":
+        if dep.get("status") == "confirmed":
             bot.answer_callback_query(call.id, "⚠️ សំណើនេះបានបញ្ជាក់រួចរាល់ហើយ!", show_alert=True)
             return
 
@@ -2249,7 +2248,7 @@ def handle(message):
             return
 
         if text == "💳 ប្រាក់បញ្ញើ":
-            pend = [(k, v) for k, v in store_deps.items() if v.get("status"] == "pending"]
+            pend = [(k, v) for k, v in store_deps.items() if v.get("status") == "pending"]
             if not pend:
                 bot.send_message(uid, "✅ គ្មានការដាក់លុយ pending", reply_markup=admin_kb()); return
             lines = ["<b>💳 ប្រាក់បញ្ញើ រង់ចាំ</b>\n━━━━━━━━━━━━━━━━━━"]
@@ -2691,7 +2690,6 @@ def _do_broadcast(admin_uid, message):
     sent = failed = 0
     msg_text = message.text or message.caption or ""
     
-    # បង្កើតប៊ូតុង "🛒 ទិញឥឡូវនេះ" ភ្ជាប់ទៅកាន់ Bot ជាមួយ Parameter (?start=buy)
     bot_username = bot.get_me().username
     broadcast_kb = InlineKeyboardMarkup([
         [InlineKeyboardButton("🛒 ទិញឥឡូវនេះ", url=f"https://t.me/{bot_username}?start=buy")]
@@ -2764,7 +2762,7 @@ def shutdown():
         bot.stop_polling()
         time.sleep(1)
         os._exit(0)
-    threading.Thread(target=_stop, daemon=VFalse if False else True).start()
+    threading.Thread(target=_stop, daemon=True).start()
     return jsonify({"status": "shutting_down", "message": "Bot is stopping..."})
 
 @flask_app.route("/restart", methods=["GET", "POST"])
