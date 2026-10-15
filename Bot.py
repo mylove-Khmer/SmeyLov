@@ -96,7 +96,7 @@ USERS_FILE      = "aio_users.json"
 LANG_FILE       = "aio_lang.json"
 PROMO_FILE      = "aio_promos.json"
 SETTINGS_FILE   = "aio_settings.json"
-DISCOUNT_FILE   = "aio_discount.json"   # Global Discount File[cite: 1]
+DISCOUNT_FILE   = "aio_discount.json"   # Global Discount File
 
 PRODUCTS_FILE   = "aio_products.json"
 ORDERS_FILE     = "aio_orders.json"
@@ -210,9 +210,9 @@ STRINGS = {
         "how_to_use": (
             "💡 <b>របៀបប្រើប្រាស់</b>\n"
             "━━━━━━━━━━━━━━━━━━\n"
-            "1️⃣ ចុច <b>💳 ដាក់ប្រាក់</b> → ជ្រើស ចំនួន → ស្កេន QR តាម Bakong[cite: 1]\n"
-            "2️⃣ ចុច <b>🛍️ ហាងឌីជីថល</b> → ជ្រើស ផលិតផល → Plan → ទូទាត់[cite: 1]\n"
-            "3️⃣ ចុច <b>📊 សេវាកម្ម SMM</b> → Platform → សេវា → ចំនួន → ផ្ញើ Link[cite: 1]"
+            "1️⃣ ចុច <b>💳 ដាក់ប្រាក់</b> → ជ្រើស ចំនួន → ស្កេន QR តាម Bakong\n"
+            "2️⃣ ចុច <b>🛍️ ហាងឌីជីថល</b> → ជ្រើស ផលិតផល → Plan → ទូទាត់\n"
+            "3️⃣ ចុច <b>📊 សេវាកម្ម SMM</b> → Platform → សេវា → ចំនួន → ផ្ញើ Link"
         ),
         "support_msg": (
             "💬 <b>ជំនួយ & ទំនាក់ទំនង Support</b>\n"
@@ -251,9 +251,9 @@ STRINGS = {
         "how_to_use": (
             "💡 <b>How to Use</b>\n"
             "━━━━━━━━━━━━━━━━━━\n"
-            "1️⃣ Tap <b>💳 Top Up</b> → Choose Amount → Scan Bakong QR[cite: 1]\n"
-            "2️⃣ Tap <b>🛍️ Shop</b> → Choose Product → Plan → Pay[cite: 1]\n"
-            "3️⃣ Tap <b>📊 SMM Services</b> → Platform → Service → Qty → Send Link[cite: 1]"
+            "1️⃣ Tap <b>💳 Top Up</b> → Choose Amount → Scan Bakong QR\n"
+            "2️⃣ Tap <b>🛍️ Shop</b> → Choose Product → Plan → Pay\n"
+            "3️⃣ Tap <b>📊 SMM Services</b> → Platform → Service → Qty → Send Link"
         ),
         "support_msg": (
             "💬 <b>Support & Contact</b>\n"
@@ -1254,7 +1254,7 @@ def cb_delsvc(call):
 
     if len(parts) == 3 and parts[1] == "cat":
         cat = parts[2]
-        to_del = [slug for slug, s in smm_services.items() if s.get("category") == cat]
+        to_del = [slug for slug, s in smm_services.items() if s.get("category"] == cat]
         for slug in to_del:
             smm_services.pop(slug, None)
         _save(SMM_SVC_FILE, smm_services)
@@ -2233,7 +2233,7 @@ def handle(message):
             return
 
         if text == "💳 ប្រាក់បញ្ញើ":
-            pend = [(k, v) for k, v in store_deps.items() if v.get("status"] == "pending"]
+            pend = [(k, v) for k, v in store_deps.items() if v.get("status") == "pending"]
             if not pend:
                 bot.send_message(uid, "✅ គ្មានការដាក់លុយ pending", reply_markup=admin_kb()); return
             lines = ["<b>💳 ប្រាក់បញ្ញើ រង់ចាំ</b>\n━━━━━━━━━━━━━━━━━━"]
